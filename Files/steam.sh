@@ -385,14 +385,7 @@ function get_missing_libraries()
 
 function check_shared_libraries()
 {
-	if [ -f "$STEAMROOT/$PLATFORM/steamui.so" ]; then
-		MISSING_LIBRARIES=$(get_missing_libraries "$STEAMROOT/$PLATFORM/steamui.so")
-	else
-		MISSING_LIBRARIES=$(get_missing_libraries "$STEAMROOT/$PLATFORM/$STEAMEXE")
-	fi
-	if [ "$MISSING_LIBRARIES" != "" ]; then
-		show_message --error $"You are missing the following 32-bit libraries, and Steam may not run:\n$MISSING_LIBRARIES"
-	fi
+	return 0
 }
 
 function ignore_signal()

@@ -3,8 +3,11 @@
 # Required dependencies:
 # shells/bash
 # X11/xterm
-# emulators/linux-c6
-# coreutils
+# emulators/linux-c7
+# sysutils/coreutils
+# archivers/gtar
+# x11/zenity
+# devel/dbus
 
 if [ ! $(which bash) ]; then
 	echo "Please install shells/bash"
