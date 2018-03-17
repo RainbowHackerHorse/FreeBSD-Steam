@@ -205,7 +205,7 @@ if [ "`command -v tee`" != "" ]; then
     if [[ -f "/tmp/dumps/${USER}_stdout.txt" ]]; then
         rm -f "/tmp/dumps/${USER}_stdout.txt"
     fi 
-	/compat/linux/bin/bash "$LAUNCHSTEAMDIR/$STEAMBOOTSTRAP" "$@" 2>&1 | tee "/tmp/dumps/${USER}_stdout.txt"
+	exec "$LAUNCHSTEAMDIR/$STEAMBOOTSTRAP" "$@" 2>&1 | tee "/tmp/dumps/${USER}_stdout.txt"
 else
-	/compat/linux/bin/bash "$LAUNCHSTEAMDIR/$STEAMBOOTSTRAP" "$@"
+	exec "$LAUNCHSTEAMDIR/$STEAMBOOTSTRAP" "$@"
 fi
