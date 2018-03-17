@@ -20,7 +20,7 @@ ARCHIVE_EXT=tar.xz
 # directory lives - and all this in a subshell, so we don't affect
 # $PWD
 
-STEAMROOT="$(cd $(dirname $0) && echo $PWD)"
+STEAMROOT="$HOME/.local/share/Steam)"
 if [ -z ${STEAMROOT} ]; then
 	echo $"Couldn't find Steam root directory from "$0", aborting!"
 	exit 1
