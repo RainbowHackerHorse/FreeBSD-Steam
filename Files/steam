@@ -198,12 +198,14 @@ fi
 # go to the install directory and run the client
 cp "$LAUNCHSTEAMBOOTSTRAPFILE" "$LAUNCHSTEAMDIR/bootstrap.tar.xz"
 cd "$LAUNCHSTEAMDIR"
+fetch "https://raw.githubusercontent.com/RainbowHackerHorse/FreeBSD-Steam/master/Files/steam.sh"
+chmod +x ./steam.sh
 if [ "`command -v tee`" != "" ]; then
 	gmkdir -p --mode=777 /tmp/dumps
     if [[ -f "/tmp/dumps/${USER}_stdout.txt" ]]; then
         rm -f "/tmp/dumps/${USER}_stdout.txt"
     fi 
-	exec "$LAUNCHSTEAMDIR/$STEAMBOOTSTRAP" "$@" 2>&1 | tee "/tmp/dumps/${USER}_stdout.txt"
+	/compat/linux/bin/bash "$LAUNCHSTEAMDIR/$STEAMBOOTSTRAP" "$@" 2>&1 | tee "/tmp/dumps/${USER}_stdout.txt"
 else
-	exec "$LAUNCHSTEAMDIR/$STEAMBOOTSTRAP" "$@"
+	/compat/linux/bin/bash "$LAUNCHSTEAMDIR/$STEAMBOOTSTRAP" "$@"
 fi
