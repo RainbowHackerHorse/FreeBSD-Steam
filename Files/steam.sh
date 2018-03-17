@@ -739,5 +739,5 @@ fi
 # If steam requested to restart, then restart
 if [ $STATUS -eq $MAGIC_RESTART_EXITCODE ] ; then
 	echo "Restarting Steam by request..."
-	exec "$0" "$@"
+	/compat/linux/bin/bash "$0" "$@"
 fi
