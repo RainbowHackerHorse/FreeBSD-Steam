@@ -731,9 +731,6 @@ fi
 
 # If steam requested to restart, then restart
 
-# Ensure our steam.sh stays in place
-fetch "https://raw.githubusercontent.com/RainbowHackerHorse/FreeBSD-Steam/master/Files/steam.sh"
-chmod +x ./steam.sh
 if [ $STATUS -eq $MAGIC_RESTART_EXITCODE ] ; then
 	echo "Restarting Steam by request..."
 	/compat/linux/bin/bash "$0" "$@"
