@@ -6,6 +6,18 @@
 # Get the full name of this script
 export STEAMSCRIPT="$(cd "${0%/*}" && echo "$PWD")/${0##*/}"
 
+# Fix hardcoded link to /usr and use the proper prefix for steam
+if [ -f /compat/linux/usr/bin/steam ]; then
+	export STEAMPREFIX=/compat/linux/usr
+elif [ -f /usr/local/bin/steam ]; then
+	export STEAMPREFIX=/usr/local
+elif [ -f /usr/bin/steam ]; then
+	export STEAMPREFIX=/usr
+else
+	echo "Failed to find steam"
+	exit 1
+fi
+
 # When this version is incremented a new package will be deployed to:
 #	http://repo.steampowered.com/steam
 # and an e-mail will be sent to the steam package update mailing list:
@@ -59,7 +71,7 @@ function setup_variables()
 	LAUNCHSTEAMPLATFORM="$(detect_platform)"
 	LAUNCHSTEAMBOOTSTRAPFILE="$(dirname "$STEAMSCRIPT")/bootstraplinux_$LAUNCHSTEAMPLATFORM.tar.xz"
 	if [ ! -f "$LAUNCHSTEAMBOOTSTRAPFILE" ]; then
-		LAUNCHSTEAMBOOTSTRAPFILE="/usr/lib/$STEAMPACKAGE/bootstraplinux_$LAUNCHSTEAMPLATFORM.tar.xz"
+		LAUNCHSTEAMBOOTSTRAPFILE="$STEAMPREFIX/lib/$STEAMPACKAGE/bootstraplinux_$LAUNCHSTEAMPLATFORM.tar.xz"
 	fi
 
 	# Get the default data path

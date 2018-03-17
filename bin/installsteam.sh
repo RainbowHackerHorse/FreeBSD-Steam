@@ -18,6 +18,4 @@ tar xvfz /tmp/steam_latest.tar.gz -C /tmp/Steam
 cd /tmp/Steam/steam
 rm /tmp/Steam/steam
 fetch "https://raw.githubusercontent.com/RainbowHackerHorse/FreeBSD-Steam/master/Files/steam" -o /tmp/Steam/steam/steam
-rm /tmp/Steam/Makefile
-fetch "https://raw.githubusercontent.com/RainbowHackerHorse/FreeBSD-Steam/master/Files/Makefile" -o /tmp/Steam/steam/Makefile
 make install PREFIX=/compat/linux/usr
