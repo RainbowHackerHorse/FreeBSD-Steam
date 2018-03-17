@@ -3,7 +3,7 @@
 all:
 	@echo 'Run steam with "./steam" or install it with "sudo make install"'
 
-install: install-bin install-docs install-icons install-bootstrap install-desktop install-apt-source
+install: install-bin install-docs install-icons install-bootstrap install-desktop
 
 install-bin:
 	install -d -m 755 $(DESTDIR)$(PREFIX)/bin/
