@@ -189,10 +189,10 @@ function detect_platform()
 function detect_universe()
 {
 	if test -f "$STEAMROOT/Steam.cfg" && \
-	     egrep '^[Uu]niverse *= *[Bb]eta$' "$STEAMROOT/Steam.cfg" >/dev/null; then
+		 egrep '^[Uu]niverse *= *[Bb]eta$' "$STEAMROOT/Steam.cfg" >/dev/null; then
 		STEAMUNIVERSE="Beta"
 	elif test -f "$STEAMROOT/steam.cfg" && \
-	     egrep '^[Uu]niverse *= *[Bb]eta$' "$STEAMROOT/steam.cfg" >/dev/null; then
+		 egrep '^[Uu]niverse *= *[Bb]eta$' "$STEAMROOT/steam.cfg" >/dev/null; then
 		STEAMUNIVERSE="Beta"
 	else
 		STEAMUNIVERSE="Public"
@@ -313,7 +313,7 @@ function extract_archive()
 function has_runtime_archive()
 {
 	# Make sure we have files to unpack
-    if [ ! -f "$STEAM_RUNTIME.$ARCHIVE_EXT.part0" ]; then
+	if [ ! -f "$STEAM_RUNTIME.$ARCHIVE_EXT.part0" ]; then
 		return 1
 	fi
 
@@ -479,22 +479,26 @@ function reset_steam()
 
 function steamos_arg()
 {
-    for option in "$@"
-    do
+	for option in "$@"
+	do
 		if [ "$option" = "-steamos" ]; then
 			return 0; # 0 == true in bash
-        fi
-    done
+		fi
+	done
 
 	return 1; # 1 == false in bash speak
 }
 
  
 #determine platform
-UNAME=`uname`
+UNAME=$(uname)
 if [ "$UNAME" != "Linux" ]; then
-   show_message --error "Unsupported Operating System"
-   exit 1
+	show_message --error "Unsupported Operating System"
+	if [ "$UNAME" = "FreeBSD" ]; then
+		show_message --warning "FreeBSD is NOT officially supported. Proceed at your own risk."
+	else
+		exit 1
+	fi
 fi
 
 # identify Linux distribution and pick an optimal bin dir
@@ -702,12 +706,12 @@ if [ "$STEAM_DEBUGGER" == "gdb" ] || [ "$STEAM_DEBUGGER" == "cgdb" ]; then
 	$STEAM_DEBUGGER -x "$ARGSFILE" --args "$STEAMROOT/$STEAMEXEPATH" "$@"
 	rm "$ARGSFILE"
 elif [ "$STEAM_DEBUGGER" == "valgrind" ]; then
-    : "${STEAM_VALGRIND:=}"
+	: "${STEAM_VALGRIND:=}"
 	DONT_BREAK_ON_ASSERT=1 G_SLICE=always-malloc G_DEBUG=gc-friendly valgrind --error-limit=no --undef-value-errors=no --suppressions=$PLATFORM/steam.supp $STEAM_VALGRIND "$STEAMROOT/$STEAMEXEPATH" "$@" 2>&1 | tee steam_valgrind.txt
 elif [ "$STEAM_DEBUGGER" == "callgrind" ]; then
-    valgrind --tool=callgrind --instr-atstart=no "$STEAMROOT/$STEAMEXEPATH" "$@"
+	valgrind --tool=callgrind --instr-atstart=no "$STEAMROOT/$STEAMEXEPATH" "$@"
 elif [ "$STEAM_DEBUGGER" == "strace" ]; then
-    strace -osteam.strace "$STEAMROOT/$STEAMEXEPATH" "$@"
+	strace -osteam.strace "$STEAMROOT/$STEAMEXEPATH" "$@"
 else
 	$STEAM_DEBUGGER "$STEAMROOT/$STEAMEXEPATH" "$@"
 fi
@@ -719,9 +723,9 @@ export LD_LIBRARY_PATH="$SYSTEM_LD_LIBRARY_PATH"
 
 if [ "$UNAME" = "Linux" ]; then
 	if [ "$INITIAL_LAUNCH" -a \
-	     $STATUS -ne $MAGIC_RESTART_EXITCODE -a \
-	     -f "$STEAMSTARTING" -a \
-	     -z "${STEAM_INSTALLED_BOOTSTRAP-}" ]; then
+		 $STATUS -ne $MAGIC_RESTART_EXITCODE -a \
+		 -f "$STEAMSTARTING" -a \
+		 -z "${STEAM_INSTALLED_BOOTSTRAP-}" ]; then
 		# Launching the bootstrap failed, try reinstalling
 		if reset_steam; then
 			# We were able to reinstall the bootstrap, try again
