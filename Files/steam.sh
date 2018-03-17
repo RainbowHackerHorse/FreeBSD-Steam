@@ -302,7 +302,7 @@ function extract_archive()
 		;;
 	esac
 	if [ "${BF}" ]; then
-		tar --blocking-factor=${BF} --checkpoint=1 --checkpoint-action='exec=echo $TAR_CHECKPOINT' -xf "$2" -C "$3" | zenity --progress --auto-close --no-cancel --width 400 --text="$1"
+		gtar --blocking-factor=${BF} --checkpoint=1 --checkpoint-action='exec=echo $TAR_CHECKPOINT' -xf "$2" -C "$3" | zenity --progress --auto-close --no-cancel --width 400 --text="$1"
 		return ${PIPESTATUS[0]}
 	else
 		echo "$1"
