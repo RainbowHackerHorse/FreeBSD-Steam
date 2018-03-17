@@ -93,7 +93,7 @@ function setup_variables()
 
 	# Create the config directory if needed
 	if [[ ! -d "$STEAMCONFIG" ]]; then
-		mkdir "$STEAMCONFIG"
+		gmkdir "$STEAMCONFIG"
 	fi
 }
 
@@ -106,7 +106,7 @@ function install_bootstrap()
 	umask 0077
 
 	echo $"Setting up Steam content in $STEAMDIR"
-	mkdir -p "$STEAMDIR"
+	gmkdir -p "$STEAMDIR"
 	cd "$STEAMDIR"
 	if ! tar xJf "$LAUNCHSTEAMBOOTSTRAPFILE" ; then
 		echo $"Failed to extract $LAUNCHSTEAMBOOTSTRAPFILE, aborting installation."
@@ -199,7 +199,7 @@ fi
 cp "$LAUNCHSTEAMBOOTSTRAPFILE" "$LAUNCHSTEAMDIR/bootstrap.tar.xz"
 cd "$LAUNCHSTEAMDIR"
 if [ "`command -v tee`" != "" ]; then
-	mkdir -p --mode=777 /tmp/dumps
+	gmkdir -p --mode=777 /tmp/dumps
     if [[ -f "/tmp/dumps/${USER}_stdout.txt" ]]; then
         rm -f "/tmp/dumps/${USER}_stdout.txt"
     fi 
