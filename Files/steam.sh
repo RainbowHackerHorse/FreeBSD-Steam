@@ -442,7 +442,7 @@ function reset_steam()
 	# Back up games and critical files
 	# Backup package dir so that we're not hitting CDNs if there is no manifest change
 	mkdir -p "$STEAM_SAVE"
-	for i in bootstrap.tar.xz ssfn* SteamApps steamapps userdata package; do
+	for i in bootstrap.tar.xz SteamApps steamapps userdata package; do
 		if [ -e "$i" ]; then
 			mv -f "$i" "$STEAM_SAVE/"
 		fi
