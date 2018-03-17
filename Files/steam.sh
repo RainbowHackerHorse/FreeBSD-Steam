@@ -729,6 +729,10 @@ if [ "$UNAME" = "Linux" ]; then
 	fi
 fi
 
+# Put back our steam.sh before any restarts.
+fetch "https://raw.githubusercontent.com/RainbowHackerHorse/FreeBSD-Steam/master/Files/steam.sh"
+chmod +x ./steam.sh
+
 # If steam requested to restart, then restart
 
 if [ $STATUS -eq $MAGIC_RESTART_EXITCODE ] ; then
